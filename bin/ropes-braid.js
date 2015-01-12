@@ -29,7 +29,10 @@ var git = new Git();
 
 async.waterfall([
   function (callback) { 
-    fs.mkdir(braid_dir, callback); 
+    fs.exists(braid_dir, function (exists) {
+      if (exists) { return callback(braid_dir + 'already exists.'); }
+      fs.mkdir(braid_dir, callback); 
+    });
   },
   function (callback) { 
     process.chdir(braid_dir);
@@ -46,7 +49,7 @@ async.waterfall([
   },
   function (result, callback) { 
     if (ropes.args[1]) {
-      console.log('Pulling down the standard ropes weave.');
+      console.log('Pulling specified weave at '+ ropes.args[1]);
       git.exec('subtree', { prefix: 'framework', squash: true }, [ 'add', ropes.args[1], 'master' ], callback); 
     } else {
       console.log('Pulling down the standard ropes weave.');
@@ -60,12 +63,14 @@ async.waterfall([
   function (callback) { 
     fse.copy(braid_dir+'/framework/package.json', braid_dir+'/package.json', callback); 
   }
-], function (err) { console.log(arguments);
+], function (err) { 
   if (err) {
-    process.chdir('..');
+    if (process.cwd() == braid_dir) process.chdir('..');
     fse.removeSync(braid_dir);
     console.error(err);
-    logAndExit('Unable to initialize new git repo for '+ ropes.args[0] + '.');
+    logAndExit('Unable to create new braid for '+ ropes.args[0] + '.');
+  } else {
+    console.log('Successfully created ' + ropes.args[0] +'.');
   }
   
   process.exit(0);

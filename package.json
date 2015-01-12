@@ -15,7 +15,9 @@
   "author": "Christopher WJ Rueber",
   "license": "MIT",
   "bin": {
-    "ropes": "./bin/ropes.js"
+    "ropes": "bin/ropes.js",
+    "ropes-braid": "bin/ropes-braid.js",
+    "ropes-weave": "bin/ropes-weave.js"
   },
   "engines": {
     "node": ">=0.8"

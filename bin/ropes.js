@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 
+'use strict';
+
 var ropes = require('commander');
 
 ropes
