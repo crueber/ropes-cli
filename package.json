@@ -1,6 +1,6 @@
 {
   "name": "ropes-cli",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Ropes Commands",
   "main": "index.js",
   "scripts": {
