@@ -62,6 +62,9 @@ async.waterfall([
   },
   function (callback) { 
     fse.copy(braid_dir+'/framework/package.json', braid_dir+'/package.json', callback); 
+  },
+  function (callback) { 
+    fse.copy(braid_dir+'/framework/.bowerrc', braid_dir+'/.bowerrc', callback); 
   }
 ], function (err) { 
   if (err) {
